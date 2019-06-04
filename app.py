@@ -8,34 +8,48 @@
 # agreement to the Shotgun Pipeline Toolkit Source Code License. All rights 
 # not expressly granted therein are reserved by Shotgun Software Inc.
 
+# The code was taken from the documentation here: https://support.shotgunsoftware.com/hc/en-us/articles/219032918-Shotgun-Integration#Developing%20Apps%20for%20Shotgun
 
 from sgtk.platform import Application
 
-class StgkStarterApp(Application):
-    """
-    The app entry point. This class is responsible for intializing and tearing down
-    the application, handle menu registration etc.
-    """
-    
+import sgtk
+
+logger = sgtk.platform.get_logger(__name__)
+
+class HelloWorld(Application):
+
     def init_app(self):
         """
-        Called as the application is being initialized
-        """
+        Register menu items with Shotgun
+        """        
+        params = {
+            "title": "Hello, World!",
+        }
+
+        self.engine.register_command("hello_world_cmd", self.do_stuff, params)
+
+        params2 = {
+            "title": "Hello, Universe!",
+        }
+
+        self.engine.register_command("hello_universe_cmd", self.do_stuff2, params2)
+
+    def do_stuff(self, entity_type, entity_ids):
+        # this message will be displayed to the user
+        self.engine.log_info("Hello, World!")
+        # self.print_context()
+
         
-        # first, we use the special import_module command to access the app module
-        # that resides inside the python folder in the app. This is where the actual UI
-        # and business logic of the app is kept. By using the import_module command,
-        # toolkit's code reload mechanism will work properly.
-        app_payload = self.import_module("app")
+    def do_stuff2(self, entity_type, entity_ids):
+        # this message will be displayed to the user
+        self.engine.log_info("Hello, Universe!")
 
-        # now register a *command*, which is normally a menu entry of some kind on a Shotgun
-        # menu (but it depends on the engine). The engine will manage this command and 
-        # whenever the user requests the command, it will call out to the callback.
 
-        # first, set up our callback, calling out to a method inside the app module contained
-        # in the python folder of the app
-        menu_callback = lambda : app_payload.dialog.show_dialog(self)
 
-        # now register the command with the engine
-        self.engine.register_command("Show Starter Template App...", menu_callback)
+    # def print_context(self):
+
+    #     whereami = self.print_context
+    #     logger.debug("RA: whereami is %s" % whereami)
+    #     # logger.debug("RA: entity_type is %s" % entity_type)
+    #     # logger.debug("RA: entity_ids is %s" % entity_ids)
         
