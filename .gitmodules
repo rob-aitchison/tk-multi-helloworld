@@ -1,0 +1,3 @@
+[submodule "tk-doc-generator"]
+	path = tk-doc-generator
+	url = git@github.com:shotgunsoftware/tk-doc-generator.git
