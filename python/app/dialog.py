@@ -36,7 +36,7 @@ def show_dialog(app_instance):
 
     # we pass the dialog class to this method and leave the actual construction
     # to be carried out by toolkit.
-    app_instance.engine.show_dialog("Starter Template App...", app_instance, AppDialog)
+    app_instance.engine.show_dialog("VRED Workflow Prototypes", app_instance, AppDialog)
 
 class AppDialog(QtGui.QWidget):
     """
@@ -69,8 +69,8 @@ class AppDialog(QtGui.QWidget):
         # tell the view to pull data from the model
         self.ui.view.setModel(self._model)
 
-        # load all assets from Shotgun
-        self._model.load_data(entity_type="Asset")
+        # load all PublishedFile entities from Shotgun
+        self._model.load_data(entity_type="PublishedFile")
 
         # setup a delegate
         self._delegate = ListItemDelegate(self.ui.view)

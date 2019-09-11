@@ -11,7 +11,7 @@
 
 from sgtk.platform import Application
 
-class StgkStarterApp(Application):
+class VREDWorkflowPrototypesApp(Application):
     """
     The app entry point. This class is responsible for intializing and tearing down
     the application, handle menu registration etc.
@@ -37,4 +37,4 @@ class StgkStarterApp(Application):
         menu_callback = lambda : app_payload.dialog.show_dialog(self)
 
         # now register the command with the engine
-        self.engine.register_command("Show Starter Template App...", menu_callback)
+        self.engine.register_command("VRED Workflow Prototypes", menu_callback)
