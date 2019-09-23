@@ -11,7 +11,7 @@
 
 from sgtk.platform import Application
 
-class StgkStarterApp(Application):
+class SgtkStarterApp(Application):
     """
     The app entry point. This class is responsible for intializing and tearing down
     the application, handle menu registration etc.
@@ -33,17 +33,9 @@ class StgkStarterApp(Application):
         # whenever the user requests the command, it will call out to the callback.
 
         # first, set up our callback, calling out to a method inside the app module contained
-        # in the python folder of the app. 
-        #
-        # Note! By passing the additional (special) entity_type and entity_ids parameters,
-        # the Shotgun enging will pass the current selection into the app via those parameters.
-        # Also note that this does not work in any other engines.
-        #
-        menu_callback = lambda entity_type, entity_ids: app_payload.dialog.show_dialog(self, entity_type, entity_ids)
-
-        # in order for the shotgun engine to enable multiple selection mode, we need to pass a special param flag:
-        parameters = { "supports_multiple_selection": True }
+        # in the python folder of the app
+        menu_callback = lambda : app_payload.dialog.show_dialog(self)
 
         # now register the command with the engine
-        self.engine.register_command("Starter Template App...", menu_callback, parameters)
+        self.engine.register_command("VRED Prototype", menu_callback)
         
